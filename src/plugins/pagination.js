@@ -74,5 +74,5 @@
         return this.gridInstance.run();
     };
 
-    Grid.prototype.registerPlugin('pagination',Pagination)
+    EasyGrid.prototype.registerPlugin('pagination',Pagination)
 })();

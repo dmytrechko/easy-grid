@@ -37,5 +37,5 @@
         this.gridInstance.run();
     };
 
-    Grid.prototype.registerPlugin('filters',Filters)
+    EasyGrid.prototype.registerPlugin('filters',Filters)
 })();

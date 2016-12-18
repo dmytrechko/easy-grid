@@ -1,5 +1,5 @@
 # EASY - grid
-Easy grid is simple data grid that allows you easily fetch data from server and display it. Making the Easy-grid, we tended to several conventions:
+Easy grid is a simple data grid that allows you to fetch data from server and display it easily. Making the Easy-grid, we tended to several conventions:
 
 * It should be easy to use;
 * It should be easy to extend;
@@ -17,9 +17,23 @@ or
 just copy source code from Github and include it into your project.
 
 ## Use 
-
+Well.. 
+```
+var MyEasyGrid = new EasyGrid('#my-grid');
+```
+..or maybe you want change some default options?
+```
+EasyGrid.prototype.defaults.pluginPaginationTrigger = 'click';
+var MyEasyGrid = new EasyGrid('#my-grid');
+```
+..or maybe you want to change some options manually and refresh grid without fetching data from server?
+```
+var MyEasyGrid = new EasyGrid('#my-grid');
+MyEasyGrid.setTemplate('#alter-template');
+MyEasyGrid.refresh();
+```
 ## Options
-All options can be specified in three ways. There is (ordered by priority):
+All options can be specified in three ways. There are (ordered by priority):
 1. Via data-* attributes on container.
 2. Via optional parameter `options` when initiating data-grid
 3. Via default options that can be defined via
@@ -49,32 +63,32 @@ Run  grid process chain without http-request:
 2. Insert data into target node
 
 ### Fetch
-Fetch data from server. Send http-request using fetch method in according to fetchParams.
+Fetch data from server. Send http-request using fetch method according to fetchParams.
 ### Render
-Render fetched data via template engine using `template` from option.
+Render fetched data via template engine using `template` from options.
 ### Insert
 Insert rendered data into `target`
 
 ## Getters and setters
-It is very important to use getters and setters for accessing and mutating grid properties. It is so important, that we even prohibit access for these properties for you :). So just use methods below:
+It is very important to use getters and setters for accessing and mutating grid properties. It is so important, that we even prohibit access for these properties for you :). So just use following methods:
 
 ### `getContainer()` 
-get Container that was used to init easy-grid. All events binded to this container. Returning DOM Element
+Get container that was used to init easy-grid. All events binded to this container. Returning DOM Element
 
 ### `getUrl(prepared)` 
-get URL used for requests.  If `prepared` true, then return URL with GET-parameters.
+Get URL used for requests.  If `prepared` true, then return URL with GET-parameters.
 
 ### `setUrl(data)` 
-set URL
+Set URL
 
 ### `getQuery()` 
-get current GET-parameters for http-request
+Get current GET-parameters for http-request
 
 ### `setQuery(option, value)` 
-set or replace parameter for http-request. Ex.: `setQuery('limit',25)`
+Set or replace parameter for http-request. Ex.: `setQuery('limit',25)`
 
 ### `getFetchParams` and `setFetchParams` 
-getter and setter for fetch params. [Learn more](https://developer.mozilla.org/en-US/docs/Web/API/GlobalFetch/fetch)
+Getter and setter for fetch params. [Learn more](https://developer.mozilla.org/en-US/docs/Web/API/GlobalFetch/fetch)
 
 ### `getTEmplate()` and `setTemplate(data)` 
 Getter and setter for template thar will be used for rendering via Lo-dash template engine. 
@@ -83,10 +97,10 @@ Getter and setter for template thar will be used for rendering via Lo-dash templ
 
 ### `getFetched()` and `setFetched(data)`
 Getter and setter for data, fetched from server. 
-**Important!** Fetched is only data results. All additional stuff from server should be placed into meta
+**Important!** Fetched data contains only data results. All additional stuff from server should be placed into `meta`.
 
 ### `getMeta()` and `setMeta(data)`
-Getter and setter for meta-data, fetched from server. Meta-data is all additional data like total number of resulta, current offset etc.
+Getter and setter for meta-data, fetched from server. Meta-data is all additional data like total number of results, current offset etc.
 
 ### `getExtra()` and `setExtra(option, value)`
 Getter and setter for Extra data. Extra data is all additional data, that can be added by plugins. For ex.: currentPage, currentFilters etc.

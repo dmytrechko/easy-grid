@@ -24,5 +24,5 @@
         return this.gridInstance.run();
     };
 
-    Grid.prototype.registerPlugin('limit',Limit)
+    EasyGrid.prototype.registerPlugin('limit',Limit)
 })();

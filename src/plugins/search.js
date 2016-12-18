@@ -26,5 +26,5 @@
         this.gridInstance.run();
     };
 
-    Grid.prototype.registerPlugin('search',Search)
+    EasyGrid.prototype.registerPlugin('search',Search)
 })();
