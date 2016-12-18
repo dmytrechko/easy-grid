@@ -1,5 +1,5 @@
 # EASY - grid
-Easy grid is a simple data grid that allows you to fetch data from server and display it easily. Making the Easy-grid, we tended to several conventions:
+Easy grid is a simple data grid that allows you to fetch data from server and display it easily. Making the Easy-grid, we were observing several conventions:
 
 * It should be easy to use;
 * It should be easy to extend;
