@@ -1,0 +1,39 @@
+{
+  "name": "easy-grid",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Simple jQuery-independent, Lo-dash powered and layout-free data grid",
+  "main": "gulpfile.js",
+  "dependencies": {},
+  "devDependencies": {
+    "gulp-concat": "^2.6.1",
+    "gulp": "^3.9.1",
+    "gulp-uglify": "^2.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dmytrechko/easy-grid.git"
+  },
+  "keywords": [
+    "grid",
+    "data-grid"
+  ],
+  "author": {
+    "name":"Vova Dmytrechko",
+    "email":"vovadmutre4ko@gmail.com"
+  },
+  "contributors": [
+    {
+      "name": "Karmin",
+      "url": "cnaijel@gamil.com"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dmytrechko/easy-grid/issues"
+  },
+  "homepage": "https://github.com/dmytrechko/easy-grid#readme"
+}

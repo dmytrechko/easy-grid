@@ -1,0 +1,34 @@
+{
+  "name": "easy-grid",
+  "version": "0.1.0",
+  "main": [
+    "dist/grid-core.js",
+    "dist/grid-full.js"
+  ],
+  "authors": [
+    "dmytrechko <vovadmutre4ko@gmail.com>",
+    "karmin <cnaijel@gmail.com>"
+  ],
+  "description": "Simple jQuery-independent, Lo-dash powered and layout-free data grid",
+  "keywords": [
+    "data-grid",
+    "grid"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dmytrechko/easy-grid.git"
+  },
+  "dependencies": {
+    "private-parts": "^0.4.1",
+    "lodash": "^4.17.2"
+  }
+}
