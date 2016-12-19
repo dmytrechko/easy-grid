@@ -1,13 +1,13 @@
 (function () {
     var __ = PrivateParts.createKey();
     
-    function Grid(container, options) {
+    function EasyGrid(container, options) {
         /** DEFINE VARIABLES */
-        if (Grid.prototype.instances.indexOf(container) !== -1) {
-            console.warn('Selector '+container+' already used for Grid!');
+        if (EasyGrid.prototype.instances.indexOf(container) !== -1) {
+            console.warn('Selector '+container+' already used for EasyGrid!');
             return false;
         }
-        Grid.prototype.instances.push(container);
+        EasyGrid.prototype.instances.push(container);
         __(this).options = options || {};
         __(this).plugins = {}; //plugins of current instance
         __(this).container = document.querySelector(container); // data, fetched from remote
@@ -36,13 +36,13 @@
      *
      * @type {Array}
      */
-    Grid.prototype.instances = [];
+    EasyGrid.prototype.instances = [];
 
     /**
-     * Default options for Grid
+     * Default options for EasyGrid
      * @type {{fetchMethod: string, fetchHeaders: {}, fetchBody: null, fetchMode: string, fetchCredentials: string}}
      */
-    Grid.prototype.defaults = {
+    EasyGrid.prototype.defaults = {
         fetchMethod:"get",
         fetchHeaders:{},
         fetchBody:null,
@@ -55,27 +55,27 @@
      *
      * @type {{}}
      */
-    Grid.prototype.plugins = {};
+    EasyGrid.prototype.plugins = {};
 
     /**
-     * Enable plugin for Grid
+     * Enable plugin for EasyGrid
      */
-    Grid.prototype.registerPlugin = function (name, plugin) {
-        if (Object.keys(Grid.prototype.plugins).indexOf(name) !==-1) {
+    EasyGrid.prototype.registerPlugin = function (name, plugin) {
+        if (Object.keys(EasyGrid.prototype.plugins).indexOf(name) !==-1) {
             console.warn('Plugin with name '+name+' already exists!');
             return false;
         }
 
-        Grid.prototype.plugins[name] = plugin;
+        EasyGrid.prototype.plugins[name] = plugin;
         return true;
     };
 
     /**
      * Init all plugins
      */
-    Grid.prototype.initPlugins = function () {
-        for (name in Grid.prototype.plugins) {
-            __(this).plugins[name] = new Grid.prototype.plugins[name]();
+    EasyGrid.prototype.initPlugins = function () {
+        for (name in EasyGrid.prototype.plugins) {
+            __(this).plugins[name] = new EasyGrid.prototype.plugins[name]();
             if (!__(this).plugins[name].init) {
                 console.warn('There is no init method in '+name+' plugin');
                 continue;
@@ -88,8 +88,8 @@
      * Pass through all plugins
      * before rendering template
      */
-    Grid.prototype.passThroughPlugins = function () {
-        for (name in Grid.prototype.plugins) {
+    EasyGrid.prototype.passThroughPlugins = function () {
+        for (name in EasyGrid.prototype.plugins) {
             if (!__(this).plugins[name].modify) {
                 console.warn('There is no modify method in '+name+' plugin');
                 continue;
@@ -103,11 +103,11 @@
      * @param name
      * @param default_option
      */
-    Grid.prototype.config = function(name, default_option) {
+    EasyGrid.prototype.config = function(name, default_option) {
         default_option = default_option || null;
         return __(this).container.dataset[name]
             || __(this).options[name]
-            || Grid.prototype.defaults[name]
+            || EasyGrid.prototype.defaults[name]
             || default_option;
     };
 
@@ -116,7 +116,7 @@
      * @param name
      * @param details
      */
-    Grid.prototype.fire = function(name, details) {
+    EasyGrid.prototype.fire = function(name, details) {
         var event = new Event(name,details||{});
         __(this).container.dispatchEvent(event);
     };
@@ -127,7 +127,7 @@
      * 2. Render data with template engine
      * 3. Insert data into target node
      */
-    Grid.prototype.run = function () {
+    EasyGrid.prototype.run = function () {
         var self = this;
 
         this.fetch()
@@ -145,7 +145,7 @@
     /**
      * Refresh grid without fetching
      */
-    Grid.prototype.refresh = function () {
+    EasyGrid.prototype.refresh = function () {
         this.passThroughPlugins();
         this.render();
         this.insert();
@@ -154,7 +154,7 @@
     /**
      * Public function - allow other to define their method for fetching (use jQuery ajax etc.)
      */
-    Grid.prototype.fetch = function() {
+    EasyGrid.prototype.fetch = function() {
         var self = this;
         self.fire('grid:fetch:before');
         return fetch(this.getUrl(true), this.getFetchParams())
@@ -174,7 +174,7 @@
      * Render fetched data, using template engine lo-dash
      * Public method - allow other to define their method for render (use Underscore etc.)
      */
-    Grid.prototype.render = function() {
+    EasyGrid.prototype.render = function() {
         this.fire('grid:render:before');
         var rendered,template = _.template(__(this).template);
         rendered = template({
@@ -189,17 +189,17 @@
     /**
      * Insert rendered data into specified target
      */
-    Grid.prototype.insert = function () {
+    EasyGrid.prototype.insert = function () {
         this.fire('grid:insert:before');
         __(this).target.innerHTML = this.getRendered();
         this.fire('grid:insert:after');
     };
 
-    Grid.prototype.getContainer = function () {
+    EasyGrid.prototype.getContainer = function () {
         return __(this).container;
     };
 
-    Grid.prototype.getUrl = function (prepared) {
+    EasyGrid.prototype.getUrl = function (prepared) {
         var self = this, url = __(this).url;
         if (prepared) {
             url += '?' + Object.keys(self.getQuery()).map(function (option) {
@@ -209,70 +209,70 @@
         return encodeURI(url);
     };
 
-    Grid.prototype.setUrl = function(data) {
+    EasyGrid.prototype.setUrl = function(data) {
         __(this).url = data;
         return this;
     };
 
-    Grid.prototype.getQuery = function() {
+    EasyGrid.prototype.getQuery = function() {
         return __(this).query;
     };
-    Grid.prototype.setQuery = function(option,value) {
+    EasyGrid.prototype.setQuery = function(option,value) {
         __(this).query[option] = value;
         return this;
     };
 
-    Grid.prototype.getFetchParams = function () {
+    EasyGrid.prototype.getFetchParams = function () {
       return __(this).fetchParams;
     };
 
-    Grid.prototype.setFetchParams = function(data) {
+    EasyGrid.prototype.setFetchParams = function(data) {
         __(this).FetchParams = data;
         return this;
     };
 
-    Grid.prototype.getTemplate = function() {
+    EasyGrid.prototype.getTemplate = function() {
         return __(this).template;
     };
 
-    Grid.prototype.setTemplate = function(data) {
-        __(this).template = data;
+    EasyGrid.prototype.setTemplate = function(data) {
+        __(this).template = document.querySelector(data).innerHTML;
         return this;
     };
 
-    Grid.prototype.getFetched = function() {
+    EasyGrid.prototype.getFetched = function() {
         return __(this).fetched;
     };
-    Grid.prototype.setFetched = function(data) {
+    EasyGrid.prototype.setFetched = function(data) {
         __(this).fetched = data;
         return this;
     };
 
-    Grid.prototype.getMeta = function() {
+    EasyGrid.prototype.getMeta = function() {
         return __(this).meta;
     };
-    Grid.prototype.setMeta = function(data) {
+    EasyGrid.prototype.setMeta = function(data) {
         __(this).meta = data;
         return this;
     };
 
-    Grid.prototype.getExtra = function() {
+    EasyGrid.prototype.getExtra = function() {
         return __(this).extra;
     };
-    Grid.prototype.setExtra = function(option,value) {
+    EasyGrid.prototype.setExtra = function(option,value) {
         __(this).extra[option] = value;
         return this;
     };
 
-    Grid.prototype.getRendered = function() {
+    EasyGrid.prototype.getRendered = function() {
         return __(this).rendered;
     };
-    Grid.prototype.setRendered = function(data) {
+    EasyGrid.prototype.setRendered = function(data) {
         __(this).rendered = data;
         return this;
     };
 
-    window.Grid = Grid;
+    window.EasyGrid = EasyGrid;
 })();
 
 
@@ -302,7 +302,7 @@
         return this.gridInstance.run();
     };
 
-    Grid.prototype.registerPlugin('limit',Limit)
+    EasyGrid.prototype.registerPlugin('limit',Limit)
 })();
 (function () {
     function Pagination() {};
@@ -380,7 +380,7 @@
         return this.gridInstance.run();
     };
 
-    Grid.prototype.registerPlugin('pagination',Pagination)
+    EasyGrid.prototype.registerPlugin('pagination',Pagination)
 })();
 (function () {
     function Search() {};
@@ -410,7 +410,7 @@
         this.gridInstance.run();
     };
 
-    Grid.prototype.registerPlugin('search',Search)
+    EasyGrid.prototype.registerPlugin('search',Search)
 })();
 (function () {
     function Filters() {};
@@ -451,5 +451,5 @@
         this.gridInstance.run();
     };
 
-    Grid.prototype.registerPlugin('filters',Filters)
+    EasyGrid.prototype.registerPlugin('filters',Filters)
 })();
