@@ -40,18 +40,26 @@ All options can be specified in three ways. There are (ordered by priority):
 ```
 Grid.prototype.defaults.option = 'my_custom_default_option';
 ```
+
 ### `url`
 Url to send request
+
 ### `target`
 Target where to insert rendered html
+
 ### `template`
 Template for template engine
+
 ### fetchParams
 Fetch params. [Learn more](https://developer.mozilla.org/en-US/docs/Web/API/GlobalFetch/fetch)
+
 ### `query`
 Query params for filtering data (limit,offset etc)
+
 ## Methods
+
 ### Run
+
 Run full grid process chain:
 1. Fetch the data
 2. Render data with template engine
