@@ -1,10 +1,7 @@
 {
   "name": "easy-grid",
   "version": "0.1.0",
-  "main": [
-    "dist/grid-core.js",
-    "dist/grid-full.js"
-  ],
+  "main": "dist/grid-full.js",
   "authors": [
     "dmytrechko <vovadmutre4ko@gmail.com>",
     "karmin <cnaijel@gmail.com>"
