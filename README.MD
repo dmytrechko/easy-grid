@@ -50,8 +50,11 @@ Template for template engine
 Fetch params. [Learn more](https://developer.mozilla.org/en-US/docs/Web/API/GlobalFetch/fetch)
 ### `query`
 Query params for filtering data (limit,offset etc)
+
 ## Methods
+
 ### Run
+
 Run full grid process chain:
 1. Fetch the data
 2. Render data with template engine
