@@ -36,7 +36,7 @@
     };
 
     Pagination.prototype.modify = function () {
-        var pages = Math.ceil(this.gridInstance.getMeta().total / this.gridInstance.getMeta().limit);
+        var pages = Math.ceil(this.gridInstance.getMeta().count / this.gridInstance.getMeta().limit);
         this.gridInstance.setExtra('currentPage', this.gridInstance.getExtra().currentPage || 1);
         if (this.gridInstance.getExtra().currentPage > pages) {
             this.goToPage(pages);
