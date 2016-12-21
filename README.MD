@@ -3,7 +3,7 @@ Easy grid is a simple data grid that allows you to fetch data from server and di
 
 * It should be easy to use;
 * It should be easy to extend;
-* It should be light-weight and clear;
+* It should be light-weight and with readable code;
 * It should use template-engine (lodash, underscore etc.) and
 * It should be independent from jQuery and any HTML-layout.
 
@@ -16,7 +16,8 @@ or
 
 just copy source code from Github and include it into your project.
 
-## Use 
+## USE
+ 
 Well.. 
 ```
 var MyEasyGrid = new EasyGrid('#my-grid');
@@ -32,6 +33,13 @@ var MyEasyGrid = new EasyGrid('#my-grid');
 MyEasyGrid.setTemplate('#alter-template');
 MyEasyGrid.refresh();
 ```
+
+Out of the box, easy-grid powered with pagination, simple filters and search, and changing number of displayed items. 
+Just create html-element with:
+ `data-action-go-first` - on click will go to first page.
+ `data-action-go-last` - on click will go to last page.
+ `data-action-limit` - to change limit option.
+ 
 ## Options
 All options can be specified in three ways. There are (ordered by priority):
 1. Via data-* attributes on container.
