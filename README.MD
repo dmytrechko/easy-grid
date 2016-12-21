@@ -36,8 +36,11 @@ MyEasyGrid.refresh();
 
 Out of the box, easy-grid powered with pagination, simple filters and search, and changing number of displayed items. 
 Just create html-element with:
+
  `data-action-go-first` - on click will go to first page.
+
  `data-action-go-last` - on click will go to last page.
+
  `data-action-limit` - to change limit option.
  
 ## Options
