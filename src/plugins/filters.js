@@ -5,13 +5,10 @@
         this.gridInstance = grid;
         var self = this,
             trigger = this.gridInstance.config('pluginFiltersTrigger','click');
-        this.gridInstance.getContainer().addEventListener(trigger, function (e) {
-            e.preventDefault();
-            if (typeof e.target.dataset.actionFilter !== 'undefined') {
-                self.setFilter.call(self,e);
-                return true;
-            }
-        })
+
+        this.gridInstance.listen(trigger,'filter',function(e) {
+            return self.setFilter(e);
+        });
     };
 
     Filters.prototype.modify = function () {

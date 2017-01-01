@@ -6,11 +6,9 @@
         var self = this,
             trigger = this.gridInstance.config('pluginLimitTrigger','change');
 
-        this.gridInstance.getContainer().addEventListener(trigger, function (e) {
-            if (typeof e.target.dataset.actionLimit !== 'undefined') {
-                self.changeLimit.call(self,e);
-            }
-        })
+        this.gridInstance.listen(trigger,'limit',function(e) {
+            return self.changeLimit(e);
+        });
     };
 
     Limit.prototype.modify = function () {

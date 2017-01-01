@@ -12,6 +12,7 @@
         __(this).plugins = {}; //plugins of current instance
         __(this).container = document.querySelector(container); // data, fetched from remote
         __(this).url = this.config('url'); //url to send
+        __(this).id = this.config('id'); // id that allows to handle several grids | optional
         __(this).target = document.querySelector(this.config('target')); // target where to insert rendered html
         __(this).template = document.querySelector(this.config('template')).innerHTML; // html of template
         __(this).fetchParams = {
@@ -120,6 +121,50 @@
         var event = new Event(name,details||{});
         __(this).container.dispatchEvent(event);
     };
+
+    /**
+     * Helper to add event listener
+     *
+     * @param events - string or array to specify several events
+     * @param actionName - name of data- attribute as it written in DOM. Ex.: "go-first" for data-action-go-first
+     * Important! To specify listener you have to use data-action attribute.
+     * @param handler - callback to call
+     */
+    EasyGrid.prototype.listen = function(events, actionName,handler) {
+        var trigger;
+        if (! (events instanceof Array) && typeof events == 'string') {
+            events = [events];
+        }
+
+        actionName = "action" + actionName.split('-').map(function (part) {
+                return part.charAt(0).toUpperCase() + part.substr(1, part.length-1);
+            }).join('');
+
+        for (var index in events) {
+            trigger = events[index];
+            __(this).container.addEventListener(trigger, function (e) {
+                if (typeof e.target.dataset[actionName] !== 'undefined') {
+                    handler(e);
+                    return true;
+                }
+            });
+
+            if (__(this).id) {
+                Array.prototype.forEach.call(document.querySelectorAll('[data-grid="' + __(this).id + '"]'), function (element) {
+                    element.addEventListener(trigger, function (e) {
+                        if (typeof e.target.dataset[actionName] !== 'undefined') {
+                            handler(e);
+                            return true;
+                        }
+                    });
+                })
+            }
+        }
+
+        return this;
+    };
+
+
 
     /**
      * Run grid process chain:
@@ -284,11 +329,9 @@
         var self = this,
             trigger = this.gridInstance.config('pluginLimitTrigger','change');
 
-        this.gridInstance.getContainer().addEventListener(trigger, function (e) {
-            if (typeof e.target.dataset.actionLimit !== 'undefined') {
-                self.changeLimit.call(self,e);
-            }
-        })
+        this.gridInstance.listen(trigger,'limit',function(e) {
+            return self.changeLimit(e);
+        });
     };
 
     Limit.prototype.modify = function () {
@@ -312,33 +355,22 @@
         var self = this,
         trigger = this.gridInstance.config('pluginPaginationTrigger','click');
 
-        this.gridInstance.getContainer().addEventListener(trigger, function (e) {
-            e.preventDefault();
-            if (typeof e.target.dataset.actionGoFirst !== 'undefined') {
-                self.goFirst.call(self,e);
-                return true;
-            }
-
-            if (typeof e.target.dataset.actionGoLast !== 'undefined') {
-                self.goLast.call(self,e);
-                return true;
-            }
-
-            if (typeof e.target.dataset.actionGoNext !== 'undefined') {
-                self.goNext.call(self,e);
-                return true;
-            }
-
-            if (typeof e.target.dataset.actionGoPrevious !== 'undefined') {
-                self.goPrevious.call(self,e);
-                return true;
-            }
-
-            if (typeof e.target.dataset.actionGoTo !== 'undefined') {
-                self.goTo.call(self,e);
-                return true;
-            }
+        this.gridInstance
+            .listen(trigger,'go-first',function(e) {
+            return self.goFirst(e);
         })
+            .listen(trigger,'go-last',function(e) {
+            return self.goLast(e);
+        })
+            .listen(trigger,'go-next',function(e) {
+            return self.goNext(e);
+        })
+            .listen(trigger,'go-previous',function(e) {
+            return self.goPrevious(e);
+        })
+            .listen(trigger,'go-to',function(e) {
+            return self.goTo(e);
+        });
     };
 
     Pagination.prototype.modify = function () {
@@ -389,13 +421,10 @@
         this.gridInstance = grid;
         var self = this,
             trigger = this.gridInstance.config('pluginSearchTrigger','click');
-        this.gridInstance.getContainer().addEventListener(trigger, function (e) {
-            e.preventDefault();
-            if (typeof e.target.dataset.actionSearch !== 'undefined') {
-                self.search.call(self,e);
-                return true;
-            }
-        })
+
+        this.gridInstance.listen(trigger,'search',function(e) {
+            return self.search(e);
+        });
     };
 
     Search.prototype.modify = function () {
@@ -419,13 +448,10 @@
         this.gridInstance = grid;
         var self = this,
             trigger = this.gridInstance.config('pluginFiltersTrigger','click');
-        this.gridInstance.getContainer().addEventListener(trigger, function (e) {
-            e.preventDefault();
-            if (typeof e.target.dataset.actionFilter !== 'undefined') {
-                self.setFilter.call(self,e);
-                return true;
-            }
-        })
+
+        this.gridInstance.listen(trigger,'filter',function(e) {
+            return self.setFilter(e);
+        });
     };
 
     Filters.prototype.modify = function () {

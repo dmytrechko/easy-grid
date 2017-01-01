@@ -5,13 +5,10 @@
         this.gridInstance = grid;
         var self = this,
             trigger = this.gridInstance.config('pluginSearchTrigger','click');
-        this.gridInstance.getContainer().addEventListener(trigger, function (e) {
-            e.preventDefault();
-            if (typeof e.target.dataset.actionSearch !== 'undefined') {
-                self.search.call(self,e);
-                return true;
-            }
-        })
+
+        this.gridInstance.listen(trigger,'search',function(e) {
+            return self.search(e);
+        });
     };
 
     Search.prototype.modify = function () {

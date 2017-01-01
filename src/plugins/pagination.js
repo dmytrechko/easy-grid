@@ -6,33 +6,22 @@
         var self = this,
         trigger = this.gridInstance.config('pluginPaginationTrigger','click');
 
-        this.gridInstance.getContainer().addEventListener(trigger, function (e) {
-            e.preventDefault();
-            if (typeof e.target.dataset.actionGoFirst !== 'undefined') {
-                self.goFirst.call(self,e);
-                return true;
-            }
-
-            if (typeof e.target.dataset.actionGoLast !== 'undefined') {
-                self.goLast.call(self,e);
-                return true;
-            }
-
-            if (typeof e.target.dataset.actionGoNext !== 'undefined') {
-                self.goNext.call(self,e);
-                return true;
-            }
-
-            if (typeof e.target.dataset.actionGoPrevious !== 'undefined') {
-                self.goPrevious.call(self,e);
-                return true;
-            }
-
-            if (typeof e.target.dataset.actionGoTo !== 'undefined') {
-                self.goTo.call(self,e);
-                return true;
-            }
+        this.gridInstance
+            .listen(trigger,'go-first',function(e) {
+            return self.goFirst(e);
         })
+            .listen(trigger,'go-last',function(e) {
+            return self.goLast(e);
+        })
+            .listen(trigger,'go-next',function(e) {
+            return self.goNext(e);
+        })
+            .listen(trigger,'go-previous',function(e) {
+            return self.goPrevious(e);
+        })
+            .listen(trigger,'go-to',function(e) {
+            return self.goTo(e);
+        });
     };
 
     Pagination.prototype.modify = function () {
