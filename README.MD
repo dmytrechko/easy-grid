@@ -154,3 +154,7 @@ Writing your own plugins for easy-grid is really easy! All that you need to know
 We use philipwalton/privateParts to make some of our properties really private. [Learn more](https://github.com/philipwalton/private-parts) about package.
 
 We use `fetch` for http-requests, so you probably will need a [polyfill](https://github.com/github/fetch).
+
+
+## Contact me
+If you have any thoughts related to the easy-grid or ideas you want to share, contact me via [email](mailto:vovadmutre4ko@gmail.com) 
