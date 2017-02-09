@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Grid example (simple list)</title>
+</head>
+<body>
+
+
+<div id="my-grid" data-url="url/to/fetch"
+    data-id="main"
+    data-query-method="get"
+    data-template="#template"
+    data-target="#target">
+    <!--element to append rendered results-->
+    <ul id="target" class="list-group">
+
+    </ul>
+    <!--template to render-->
+    <script id="template" type="text/template">
+        _.each(results,function(r){
+        <li class="list-group-item"> <%= r.name %> on <%= r.position %><span class="badge"><%= r.age %></span></li>
+        })
+    </script>
+
+</div>
+
+
+<script src="path/to/easygrid.js"></script>
+<script type="application/javascript">
+    /**
+     Example of server response
+
+     var response = {
+        results:[{
+            id:1,
+            name:"Sample Man",
+            position:"superhero",
+            age:25
+        },{
+            id:2,
+            name:"Sample Kid",
+            position:"victim",
+            age:13
+        },{
+            id:3,
+            name:"Bad Man",
+            position:"villian",
+            age:36
+        },{
+            id:4,
+            name:"Sample Girl",
+            position:"passer-by",
+            age:23
+        }
+        ],
+        meta:{
+            count:4,
+            limit:0,
+            offset:4,
+            myExtraStuffThatPassedFromServer:"myExtraStuffThatPassedFromServer"
+        },
+    };
+     */
+
+    document.addEventListener("DOMContentLoaded", function(event) {
+        new EasyGrid('#my-grid');
+    });
+
+
+</script>
+</body>
+</html>
