@@ -144,11 +144,14 @@ Getter and setter for rendered data. Rendered data is data, already rendered by 
 
 ## Contributing
 Writing your own plugins for easy-grid is really easy! All that you need to know is:
+
 1. Method `registerPlugin(name,plugin)` that accept name of your plugin and plugin itself.
+
 2. All your plugins should have method `init(grid)` that accept instance of easy grid. In this method your can specify any extra data or bind events etc. This method will be executed after initiating grid and before fetching data.
+
 3. All your plugins should have method `modify()` that will be executed after fetching data and before rendering it. In this method you can do whatever you want using getters and setters. 
 
-    Changing limit, pagination and simple search and fileters is already made as Easy grid plugins. So you can either use them or just watch them as examples for creating your own.
+Changing limit, pagination and simple search and fileters is already made as Easy grid plugins. So you can either use them or just watch them as examples for creating your own.
 
 ## Requirements
 We use philipwalton/privateParts to make some of our properties really private. [Learn more](https://github.com/philipwalton/private-parts) about package.
